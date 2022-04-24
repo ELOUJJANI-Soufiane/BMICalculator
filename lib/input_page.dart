@@ -4,6 +4,7 @@ import 'package:bmi_calc/main.dart';
 import 'package:flutter/material.dart';
 import 'my_container.dart';
 import 'my_icon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const activCardColor = Color(0xFF1D1E33);
 const inactiveCardColor = Color(0xFF111328);
@@ -21,8 +22,17 @@ class _InputPageState extends State<InputPage> {
     if (gender == 1) {
       if (maleCardColor == inactiveCardColor) {
         maleCardColor = activCardColor;
+        femaleCardColor = inactiveCardColor;
       } else {
         maleCardColor = inactiveCardColor;
+      }
+    }
+    if (gender == 2) {
+      if (femaleCardColor == inactiveCardColor) {
+        femaleCardColor = activCardColor;
+        maleCardColor = inactiveCardColor;
+      } else {
+        femaleCardColor = inactiveCardColor;
       }
     }
   }
@@ -50,22 +60,23 @@ class _InputPageState extends State<InputPage> {
                           });
                         },
                         child: MyContainer(
-                            contColor: maleCardColor,
-                            cardChild:
-                                MyIcons(label: "MALE", myIcon: Icons.male)),
+                          contColor: maleCardColor,
+                          cardChild: MyIcons(
+                              label: "MALE", myIcon: FontAwesomeIcons.mars),
+                        ),
                       ),
                     ),
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            updateColor(1);
+                            updateColor(2);
                           });
                         },
                         child: MyContainer(
                           contColor: femaleCardColor,
-                          cardChild:
-                              MyIcons(label: "FEMALE", myIcon: Icons.female),
+                          cardChild: MyIcons(
+                              label: "FEMALE", myIcon: FontAwesomeIcons.venus),
                         ),
                       ),
                     ),
@@ -75,7 +86,7 @@ class _InputPageState extends State<InputPage> {
               Expanded(
                 child: MyContainer(
                   contColor: activCardColor,
-                  cardChild: Container(),
+                  cardChild: Icon(FontAwesomeIcons.accessibleIcon),
                 ),
               ),
               Expanded(

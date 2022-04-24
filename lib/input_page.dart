@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bmi_calc/main.dart';
 import 'package:flutter/material.dart';
@@ -15,27 +15,29 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = activCardColor;
-  Color femaleCardColor = activCardColor;
+  GenderType selectedGender = GenderType.male;
 
-  void updateColor(int gender) {
-    if (gender == 1) {
-      if (maleCardColor == inactiveCardColor) {
-        maleCardColor = activCardColor;
-        femaleCardColor = inactiveCardColor;
-      } else {
-        maleCardColor = inactiveCardColor;
-      }
-    }
-    if (gender == 2) {
-      if (femaleCardColor == inactiveCardColor) {
-        femaleCardColor = activCardColor;
-        maleCardColor = inactiveCardColor;
-      } else {
-        femaleCardColor = inactiveCardColor;
-      }
-    }
-  }
+  // Color maleCardColor = activCardColor;
+  // Color femaleCardColor = activCardColor;
+
+  // void updateColor(GenderType gender) {
+  //   if (gender == GenderType.male) {
+  //     if (maleCardColor == inactiveCardColor) {
+  //       maleCardColor = activCardColor;
+  //       femaleCardColor = inactiveCardColor;
+  //     } else {
+  //       maleCardColor = inactiveCardColor;
+  //     }
+  //   }
+  //   if (gender == GenderType.female) {
+  //     if (femaleCardColor == inactiveCardColor) {
+  //       femaleCardColor = activCardColor;
+  //       maleCardColor = inactiveCardColor;
+  //     } else {
+  //       femaleCardColor = inactiveCardColor;
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +58,13 @@ class _InputPageState extends State<InputPage> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            updateColor(1);
+                            selectedGender = GenderType.male;
                           });
                         },
                         child: MyContainer(
-                          contColor: maleCardColor,
+                          contColor: selectedGender == GenderType.male
+                              ? activCardColor
+                              : inactiveCardColor,
                           cardChild: MyIcons(
                               label: "MALE", myIcon: FontAwesomeIcons.mars),
                         ),
@@ -70,11 +74,13 @@ class _InputPageState extends State<InputPage> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            updateColor(2);
+                            selectedGender = GenderType.female;
                           });
                         },
                         child: MyContainer(
-                          contColor: femaleCardColor,
+                          contColor: selectedGender == GenderType.female
+                              ? activCardColor
+                              : inactiveCardColor,
                           cardChild: MyIcons(
                               label: "FEMALE", myIcon: FontAwesomeIcons.venus),
                         ),
@@ -86,7 +92,12 @@ class _InputPageState extends State<InputPage> {
               Expanded(
                 child: MyContainer(
                   contColor: activCardColor,
-                  cardChild: Icon(FontAwesomeIcons.accessibleIcon),
+                  cardChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      MyIcons(label: "Slide", myIcon: FontAwesomeIcons.slash),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -113,4 +124,9 @@ class _InputPageState extends State<InputPage> {
       ),
     );
   }
+}
+
+enum GenderType {
+  male,
+  female,
 }

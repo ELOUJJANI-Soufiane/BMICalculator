@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'constant.dart';
 
 class MyIcons extends StatelessWidget {
   MyIcons({Key? key, required this.label, required this.myIcon})
@@ -8,7 +9,6 @@ class MyIcons extends StatelessWidget {
 
   final String label;
   final IconData myIcon;
-  final Color txtColor = Color(0xFF8d8e98);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,8 @@ class MyIcons extends StatelessWidget {
         ),
         Text(
           label,
-          style: TextStyle(
-            color: txtColor,
-            fontSize: 18,
-          ),
-        )
+          style: labelTextStyle,
+        ),
       ],
     );
   }

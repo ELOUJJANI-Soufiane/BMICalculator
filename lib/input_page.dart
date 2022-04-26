@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'my_container.dart';
 import 'my_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const activCardColor = Color(0xFF1D1E33);
-const inactiveCardColor = Color(0xFF111328);
+import 'constant.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,28 +14,6 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender = GenderType.male;
-
-  // Color maleCardColor = activCardColor;
-  // Color femaleCardColor = activCardColor;
-
-  // void updateColor(GenderType gender) {
-  //   if (gender == GenderType.male) {
-  //     if (maleCardColor == inactiveCardColor) {
-  //       maleCardColor = activCardColor;
-  //       femaleCardColor = inactiveCardColor;
-  //     } else {
-  //       maleCardColor = inactiveCardColor;
-  //     }
-  //   }
-  //   if (gender == GenderType.female) {
-  //     if (femaleCardColor == inactiveCardColor) {
-  //       femaleCardColor = activCardColor;
-  //       maleCardColor = inactiveCardColor;
-  //     } else {
-  //       femaleCardColor = inactiveCardColor;
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,35 +31,31 @@ class _InputPageState extends State<InputPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {
+                      child: MyContainer(
+                        onPress: () {
                           setState(() {
                             selectedGender = GenderType.male;
                           });
                         },
-                        child: MyContainer(
-                          contColor: selectedGender == GenderType.male
-                              ? activCardColor
-                              : inactiveCardColor,
-                          cardChild: MyIcons(
-                              label: "MALE", myIcon: FontAwesomeIcons.mars),
-                        ),
+                        contColor: selectedGender == GenderType.male
+                            ? kActivCardColor
+                            : kInactivCardColor,
+                        cardChild: MyIcons(
+                            label: "MALE", myIcon: FontAwesomeIcons.mars),
                       ),
                     ),
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {
+                      child: MyContainer(
+                        onPress: () {
                           setState(() {
                             selectedGender = GenderType.female;
                           });
                         },
-                        child: MyContainer(
-                          contColor: selectedGender == GenderType.female
-                              ? activCardColor
-                              : inactiveCardColor,
-                          cardChild: MyIcons(
-                              label: "FEMALE", myIcon: FontAwesomeIcons.venus),
-                        ),
+                        contColor: selectedGender == GenderType.female
+                            ? kActivCardColor
+                            : kInactivCardColor,
+                        cardChild: MyIcons(
+                            label: "FEMALE", myIcon: FontAwesomeIcons.venus),
                       ),
                     ),
                   ],
@@ -91,32 +63,42 @@ class _InputPageState extends State<InputPage> {
               ),
               Expanded(
                 child: MyContainer(
-                  contColor: activCardColor,
-                  cardChild: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MyIcons(label: "Slide", myIcon: FontAwesomeIcons.slash),
-                    ],
-                  ),
-                ),
+                    onPress: () {},
+                    contColor: kInactivCardColor,
+                    cardChild: Column(
+                      children: [
+                        Text(
+                          "Heigh",
+                          style: labelTextStyle,
+                        ),
+                      ],
+                    )),
               ),
               Expanded(
                 child: Row(
                   children: [
                     Expanded(
                       child: MyContainer(
-                        contColor: activCardColor,
+                        onPress: () {},
+                        contColor: kInactivCardColor,
                         cardChild: Container(),
                       ),
                     ),
                     Expanded(
                       child: MyContainer(
-                        contColor: activCardColor,
+                        onPress: () {},
+                        contColor: kInactivCardColor,
                         cardChild: Container(),
                       ),
                     ),
                   ],
                 ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 10.0),
+                height: kBottomContainerHeight,
+                color: kBottomContainerColor,
               ),
             ],
           ),

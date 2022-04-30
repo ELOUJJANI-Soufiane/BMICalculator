@@ -15,6 +15,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   GenderType selectedGender = GenderType.male;
   int height = 180;
+  int weight = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +122,43 @@ class _InputPageState extends State<InputPage> {
                       child: MyContainer(
                         onPress: () {},
                         contColor: kInactivCardColor,
-                        cardChild: Container(),
+                        cardChild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "WEIGHT",
+                              style: kLabelTextStyle,
+                            ),
+                            Text(
+                              weight.toString(),
+                              style: kNumbText,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FloatingActionButton(
+                                  backgroundColor: kFloatingButtonColor,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: (() {}),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                FloatingActionButton(
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                  backgroundColor: kFloatingButtonColor,
+                                  onPressed: (() {}),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(

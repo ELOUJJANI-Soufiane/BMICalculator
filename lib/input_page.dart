@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_print
-
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, avoid_print, prefer_typing_uninitialized_variables, non_constant_identifier_names
 import 'package:bmi_calc/main.dart';
+import 'package:bmi_calc/result_page.dart';
 import 'package:flutter/material.dart';
+import 'bottom_button.dart';
 import 'my_container.dart';
 import 'my_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'constant.dart';
+import 'base_container.dart';
+import 'calculator_brain.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -16,6 +19,10 @@ class _InputPageState extends State<InputPage> {
   GenderType selectedGender = GenderType.male;
   int height = 180;
   int weight = 60;
+  int age = 30;
+  String weightTitle = "WEIGHT";
+  String ageTitle = "AGE";
+  String weightValue = "Kg";
 
   @override
   Widget build(BuildContext context) {
@@ -122,42 +129,20 @@ class _InputPageState extends State<InputPage> {
                       child: MyContainer(
                         onPress: () {},
                         contColor: kInactivCardColor,
-                        cardChild: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "WEIGHT",
-                              style: kLabelTextStyle,
-                            ),
-                            Text(
-                              weight.toString(),
-                              style: kNumbText,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FloatingActionButton(
-                                  backgroundColor: kFloatingButtonColor,
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: (() {}),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                FloatingActionButton(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                  backgroundColor: kFloatingButtonColor,
-                                  onPressed: (() {}),
-                                ),
-                              ],
-                            ),
-                          ],
+                        cardChild: BsContainer(
+                          onPressedPlus: () {
+                            setState(() {
+                              weight++;
+                            });
+                          },
+                          onPressedMinus: () {
+                            setState(() {
+                              weight--;
+                            });
+                          },
+                          value: weightValue,
+                          title: weightTitle,
+                          txt: weight,
                         ),
                       ),
                     ),
@@ -165,17 +150,42 @@ class _InputPageState extends State<InputPage> {
                       child: MyContainer(
                         onPress: () {},
                         contColor: kInactivCardColor,
-                        cardChild: Container(),
+                        cardChild: BsContainer(
+                          onPressedPlus: () {
+                            setState(() {
+                              age++;
+                            });
+                          },
+                          onPressedMinus: () {
+                            setState(() {
+                              age--;
+                            });
+                          },
+                          txt: age,
+                          value: "Y",
+                          title: ageTitle,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 10.0),
-                height: kBottomContainerHeight,
-                color: kBottomContainerColor,
+              BottomButton(
+                onTap: () {
+                  CalculatorBrain calc = CalculatorBrain(height, weight);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultPage(
+                        bmiResult: calc.calculateBmi(),
+                        resultText: calc.getResult(),
+                        interpretation: calc.getInterpretation(),
+                      ),
+                    ),
+                  );
+                },
+                title: "CALCULATE",
               ),
             ],
           ),
